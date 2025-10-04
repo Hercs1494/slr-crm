@@ -1,0 +1,143 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Customer {
+  id        String   @id @default(cuid())
+  firstName String
+  lastName  String
+  email     String?
+  phone     String?
+  postcode  String?
+  address1  String?
+  address2  String?
+  notes     String?
+  quickfileClientId String?
+  enquiries Enquiry[]
+  quotes    Quote[]
+  jobs      Job[]
+  createdAt DateTime @default(now())
+}
+
+model Enquiry {
+  id          String   @id @default(cuid())
+  customer    Customer @relation(fields: [customerId], references: [id])
+  customerId  String
+  description String?
+  status      String   @default("open")
+  createdAt   DateTime @default(now())
+}
+
+model Quote {
+  id          String   @id @default(cuid())
+  customer    Customer @relation(fields: [customerId], references: [id])
+  customerId  String
+  status      String   @default("draft")
+  validUntil  DateTime?
+  subtotal    Int      @default(0)
+  tax         Int      @default(0)
+  total       Int      @default(0)
+  quickfileInvoiceId Int?
+  paymentReference  String?
+  bookingInvoiceId Int?
+  finalInvoiceId   Int?
+  items       QuoteItem[]
+  job         Job?
+  createdAt   DateTime @default(now())
+}
+
+model QuoteItem {
+  id        String @id @default(cuid())
+  quote     Quote  @relation(fields: [quoteId], references: [id])
+  quoteId   String
+  sku       String?
+  title     String
+  qty       Int     @default(1)
+  unitPence Int     @default(0)
+  type      String  // task | part | fee | discount
+  taxRate   Int     @default(2000) // basis points (20%)
+}
+
+model Job {
+  id          String @id @default(cuid())
+  customer    Customer @relation(fields: [customerId], references: [id])
+  customerId  String
+  quote       Quote?  @relation(fields: [quoteId], references: [id])
+  quoteId     String?
+  status      String  @default("scheduled")
+  media       MediaAsset[]
+  appointments Appointment[]
+}
+
+model Appointment {
+  id        String   @id @default(cuid())
+  job       Job      @relation(fields: [jobId], references: [id])
+  jobId     String
+  startAt   DateTime
+  endAt     DateTime
+  location  String?
+  travelMin Int      @default(0)
+  bufferMin Int      @default(0)
+  checkedInAt DateTime?
+  checkedOutAt DateTime?
+  checkinLat Float?
+  checkinLng Float?
+  checkinAcc Float?
+  checkoutLat Float?
+  checkoutLng Float?
+  checkoutAcc Float?
+  technician String?
+  notifications Notification[]
+}
+
+model MediaAsset {
+  id       String @id @default(cuid())
+  job      Job    @relation(fields: [jobId], references: [id])
+  jobId    String
+  kind     String // photo | video
+  url      String
+  thumbUrl String?
+  notes    String?
+  takenAt  DateTime?
+  createdAt DateTime @default(now())
+}
+
+model Notification {
+  id           String @id @default(cuid())
+  appointment  Appointment @relation(fields: [appointmentId], references: [id])
+  appointmentId String
+  channel      String // email | sms
+  window       String // T-7d | T-24h
+  sentAt       DateTime @default(now())
+  @@unique([appointmentId, channel, window])
+}
+
+
+model Settings {
+  id        Int     @id @default(1)
+  brandName String? 
+  brandWebsite String?
+  brandPrimaryColor String?
+  brandLogoUrl String?
+  bookingsEmail String?
+  lastCronRunAt DateTime?
+  updatedAt DateTime @updatedAt
+}
+
+
+model Payment {
+  id           String   @id @default(cuid())
+  createdAt    DateTime @default(now())
+  provider     String
+  externalId   String
+  amountPence  Int
+  kind         String   // 'booking' | 'balance' | 'other'
+  invoiceId    Int
+  quoteId      String?
+  @@index([quoteId])
+}
