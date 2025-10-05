@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { prisma } from '@/lib/db';
-import { requireAdmin } from '@/lib/api-auth';
+import { prisma } from '../../../lib/db';
+import { requireAdmin } from '../../../lib/api-auth';
 
 export async function POST(req: NextRequest, { params }: { params: { id: string } }) {
   if (!requireAdmin()) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
