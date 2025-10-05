@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { prisma } from '@/lib/db';
-import { requireAdmin } from '@/lib/api-auth';
+import { prisma } from '../../../../lib/db';
+import { requireAdmin } from '../../../../lib/api-auth';
 
 function csvEscape(s: any) {
   if (s === null || s === undefined) return '';
