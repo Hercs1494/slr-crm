@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getClientIp } from '@/lib/rate-limit';
-import { rateLimitOrFallback } from '@/lib/rate-limit-redis';
-import { createSquareLink } from '@/lib/square';
-import { createSumUpCheckout } from '@/lib/sumup';
-import { prisma } from '@/lib/db';
+import { getClientIp } from '../../../lib/rate-limit';
+import { rateLimitOrFallback } from '../../../lib/rate-limit-redis';
+import { createSquareLink } from '../../../lib/square';
+import { createSumUpCheckout } from '../../../lib/sumup';
+import { prisma } from '../../../lib/db';
 
 export async function POST(req: NextRequest) {
   const ip = getClientIp(req as any);
