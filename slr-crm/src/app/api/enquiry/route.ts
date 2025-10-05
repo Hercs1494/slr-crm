@@ -1,7 +1,7 @@
-import { prisma } from '@/lib/db';
+import { prisma } from '../../../lib/db';
 import { NextRequest, NextResponse } from 'next/server';
-import { getClientIp } from '@/lib/rate-limit';
-import { rateLimitOrFallback } from '@/lib/rate-limit-redis';
+import { getClientIp } from '../../../lib/rate-limit';
+import { rateLimitOrFallback } from '../../../lib/rate-limit-redis';
 
 export async function POST(req: NextRequest) {
   const ip = getClientIp(req as any);
