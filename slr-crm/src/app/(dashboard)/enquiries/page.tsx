@@ -1,6 +1,6 @@
-import { prisma } from '@/lib/db';
-import AdminNav from '@/components/AdminNav';
-import { startOfflineReplay } from '@/lib/offline';
+import { prisma } from '../../../lib/db';
+import AdminNav from '../../../components/AdminNav';
+import { startOfflineReplay } from '../../../lib/offline';
 import RealtimeRefresher from '../../../components/RealtimeRefresher';
 
 export default async function EnquiriesPage() {
