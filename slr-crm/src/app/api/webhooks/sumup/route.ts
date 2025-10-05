@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import crypto from 'crypto';
-import { prisma } from '@/lib/db';
-import { logPayment, ensureClient, createBalanceInvoice } from '@/lib/quickfile';
+import { prisma } from '../../../lib/db';
+import { logPayment, ensureClient, createBalanceInvoice } from '../../../lib/quickfile';
 
 function verifySumUpSignature(req: NextRequest, rawBody: string) {
   const sig = req.headers.get('x-sumup-signature') || req.headers.get('x-hub-signature-256') || '';
