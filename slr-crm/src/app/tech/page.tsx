@@ -1,12 +1,26 @@
 'use client';
-import useSWR from 'swr';
-import React from 'react';
-import { useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { offlineFetch } from '@/lib/offline';
 import dynamic from 'next/dynamic';
 const MapThumb = dynamic(() => import('@/components/MapThumb'), { ssr: false });
 
-const fetcher = (url:string) => fetch(url).then(r => r.json());
+const [data, setData] = useState<any>(null);
+
+async function load() {
+  try {
+    const res = await fetch('/api/tech/overview', { cache: 'no-store' });
+    const json = await res.json();
+    setData(json);
+  } catch (e) {
+    console.error('Error fetching overview', e);
+  }
+}
+
+useEffect(() => {
+  load();                    // first load
+  const id = setInterval(load, 10000); // refresh every 10s
+  return () => clearInterval(id);
+}, []);
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return <div className="rounded-xl border p-3 bg-white"><div className="font-medium mb-2">{title}</div>{children}</div>;
@@ -17,7 +31,7 @@ export default function TechDashboard() {
   const [start, setStart] = React.useState<string>('');
   const [end, setEnd] = React.useState<string>('');
   const qs = new URLSearchParams({ ...(techFilter?{tech:techFilter}:{}), ...(start?{start}:{}) , ...(end?{end}:{}) }).toString();
-  const { data, mutate } = useSWR(`/api/tech/overview${qs?`?${qs}`:''}`, fetcher, { refreshInterval: 10000 });
+  
 
   async function act(apptId: string, kind: 'checkin'|'checkout') {
     let pos: any = null;
@@ -37,7 +51,7 @@ export default function TechDashboard() {
       body: JSON.stringify(pos || {}),
       queueOnFail: true
     });
-    if (res.ok || res.status === 202) mutate();
+    if (res.ok || res.status === 202) load();
   }
 
   const todays = data?.todays || [];
