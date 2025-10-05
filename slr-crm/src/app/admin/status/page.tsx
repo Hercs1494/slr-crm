@@ -1,6 +1,6 @@
 'use client';
 import useSWR from 'swr';
-import AdminNav from '@/components/AdminNav';
+import AdminNav from '../../../components/AdminNav';
 
 const fetcher = (url:string) => fetch(url).then(r => r.json());
 
