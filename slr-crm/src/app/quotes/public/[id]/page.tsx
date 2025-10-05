@@ -1,5 +1,5 @@
-import { prisma } from '@/lib/db';
-import { verifyToken } from '@/lib/sign';
+import { prisma } from '../../../lib/db';
+import { verifyToken } from '../../../lib/sign';
 
 function gbp(pence: number) {
   return new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'GBP' }).format((pence||0)/100);
