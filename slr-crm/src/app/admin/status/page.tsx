@@ -1,5 +1,5 @@
 'use client';
-import useSWR from 'swr';
+import React, { useEffect, useState } from 'react';
 import AdminNav from '../../../components/AdminNav';
 
 const fetcher = (url:string) => fetch(url).then(r => r.json());
@@ -9,9 +9,26 @@ function Badge({ ok }: { ok: boolean }) {
 }
 
 export default function StatusPage() {
-  const { data } = useSWR('/api/status', fetcher, { refreshInterval: 10000 });
-  const checks = data?.checks || {};
-  const keys = Object.keys(checks);
+  const [data, setData] = useState<any>(null);
+
+async function load() {
+  try {
+    const res = await fetch('/api/status', { cache: 'no-store' });
+    const json = await res.json();
+    setData(json);
+  } catch (e) {
+    console.error('Error fetching status', e);
+  }
+}
+
+useEffect(() => {
+  load();
+  const id = setInterval(load, 10000); // refresh every 10s
+  return () => clearInterval(id);
+}, []);
+
+const checks = data?.checks || {};
+const keys = Object.keys(checks);
 
   return (
     <div>
