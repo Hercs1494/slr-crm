@@ -1,6 +1,6 @@
 import { prisma } from '@/lib/db';
 import AdminNav from '@/components/AdminNav';
-import RealtimeRefresher from '@/components/RealtimeRefresher';
+import RealtimeRefresher from '../../../components/RealtimeRefresher';
 import dynamic from 'next/dynamic';
 const MapThumb = dynamic(() => import('@/components/MapThumb'), { ssr: false });
 
