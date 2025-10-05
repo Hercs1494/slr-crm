@@ -1,7 +1,7 @@
-import { prisma } from '@/lib/db';
+import { prisma } from '../../../lib/db';
 import { revalidatePath } from 'next/cache';
 
-import AdminNav from '@/components/AdminNav';
+import AdminNav from '../../../components/AdminNav';
 
 export default async function BrandSettingsPage() {
   const settings = await prisma.settings.findUnique({ where: { id: 1 } });
