@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { requireAdmin } from '@/lib/api-auth';
+import { requireAdmin } from '../../../../../lib/api-auth';
 
-import { signToken } from '@/lib/sign';
+import { signToken } from '../../../../../lib/sign';
 
 \1
   if (!requireAdmin()) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
