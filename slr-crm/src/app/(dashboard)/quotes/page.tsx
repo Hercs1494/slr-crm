@@ -1,9 +1,9 @@
-import { prisma } from '@/lib/db';
-import CopyPublicLinkButton from '@/components/CopyPublicLinkButton';
+import { prisma } from '../../../lib/db';
+import CopyPublicLinkButton from '../../../components/CopyPublicLinkButton';
 
-import AdminNav from '@/components/AdminNav';
-import { startOfflineReplay } from '@/lib/offline';
-import RealtimeRefresher from '@/components/RealtimeRefresher';
+import AdminNav from '../../../components/AdminNav';
+import { startOfflineReplay } from '../../../lib/offline';
+import RealtimeRefresher from '../../../components/RealtimeRefresher';
 
 export default async function QuotesAdminPage() {
   const quotes = await prisma.quote.findMany({ include: { customer: true }, orderBy: { createdAt: 'desc' }, take: 50 });
