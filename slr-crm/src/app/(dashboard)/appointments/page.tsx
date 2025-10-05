@@ -1,8 +1,8 @@
-import { prisma } from '@/lib/db';
-import AdminNav from '@/components/AdminNav';
+import { prisma } from '../../../lib/db';
+import AdminNav from '../../../components/AdminNav';
 import RealtimeRefresher from '../../../components/RealtimeRefresher';
 import dynamic from 'next/dynamic';
-const MapThumb = dynamic(() => import('@/components/MapThumb'), { ssr: false });
+const MapThumb = dynamic(() => import('../../../components/MapThumb'), { ssr: false });
 
 export default async function AppointmentsPage() {
   const appts = await prisma.appointment.findMany({ include: { job: { include: { customer: true } } }, orderBy: { startAt: 'asc' }, take: 100 });
