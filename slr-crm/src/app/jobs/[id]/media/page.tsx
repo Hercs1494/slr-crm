@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import { offlineFetch } from '@/lib/offline';
+import { offlineFetch } from '../../../lib/offline';
 
 type Target = { path: string; url: string };
 
