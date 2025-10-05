@@ -1,8 +1,8 @@
-import { prisma } from '@/lib/db';
+import { prisma } from '../../../lib/db';
 import { redirect } from 'next/navigation';
-import { createSquareLink } from '@/lib/square';
-import { createSumUpCheckout } from '@/lib/sumup';
-import { ensureClient, createInvoice } from '@/lib/quickfile';
+import { createSquareLink } from '../../../lib/square';
+import { createSumUpCheckout } from '../../../lib/sumup';
+import { ensureClient, createInvoice } from '../../../lib/quickfile';
 
 function gbp(pence: number) {
   return new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'GBP' }).format((pence||0)/100);
