@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getClientIp } from '@/lib/rate-limit';
-import { rateLimitOrFallback } from '@/lib/rate-limit-redis';
-import { prisma } from '@/lib/db';
-import { verifyToken } from '@/lib/sign';
+import { getClientIp } from '../../../lib/rate-limit';
+import { rateLimitOrFallback } from '../../../lib/rate-limit-redis';
+import { prisma } from '../../../lib/db';
+import { verifyToken } from '../../../lib/sign';
 import { PDFDocument, StandardFonts, rgb } from 'pdf-lib';
 
 function gbp(pence: number) {
