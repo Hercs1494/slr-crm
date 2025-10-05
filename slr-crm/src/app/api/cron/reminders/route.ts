@@ -1,6 +1,6 @@
-import { prisma } from '@/lib/db';
+import { prisma } from '../../../lib/db';
 import { NextRequest, NextResponse } from 'next/server';
-import { sendEmail, sendSMS } from '@/lib/notifications';
+import { sendEmail, sendSMS } from '../../../lib/notifications';
 
 function inWindow(startAt: Date, hoursAhead: number) {
   const now = new Date();
