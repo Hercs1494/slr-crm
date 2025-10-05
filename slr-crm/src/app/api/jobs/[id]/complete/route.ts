@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { requireAdmin } from '@/lib/api-auth';
+import { requireAdmin } from '../../../../../lib/api-auth';
 
-import { prisma } from '@/lib/db';
-import { sendEmail } from '@/lib/notifications';
+import { prisma } from '../../../../../lib/db';
+import { sendEmail } from '../../../../../lib/notifications';
 
 \1
   if (!requireAdmin()) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
