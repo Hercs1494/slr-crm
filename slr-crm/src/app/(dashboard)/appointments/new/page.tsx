@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import { offlineFetch } from '@/lib/offline';
+import { offlineFetch } from '../../../lib/offline';
 
 export default function NewAppointmentPage() {
   const [status, setStatus] = useState<string>('');
