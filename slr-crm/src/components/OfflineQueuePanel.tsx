@@ -1,6 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { getQueue } from '@/lib/offline';
+import { getQueue } from '../../../lib/offline';
 
 export default function OfflineQueuePanel() {
   const [items, setItems] = useState<any[]>([]);
