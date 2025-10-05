@@ -1,8 +1,8 @@
 'use client';
 import React, { useEffect, useMemo, useState } from 'react';
-import { offlineFetch } from '@/lib/offline';
+import { offlineFetch } from '../../../lib/offline';
 import dynamic from 'next/dynamic';
-const MapThumb = dynamic(() => import('@/components/MapThumb'), { ssr: false });
+const MapThumb = dynamic(() => import('../../../components/MapThumb'), { ssr: false });
 
 const [data, setData] = useState<any>(null);
 
