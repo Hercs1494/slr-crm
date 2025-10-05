@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { requireAdmin } from '@/lib/api-auth';
+import { requireAdmin } from '../../../../../lib/api-auth';
 
-import { ensureClient, createInvoice } from '@/lib/quickfile';
-import { prisma } from '@/lib/db';
+import { ensureClient, createInvoice } from '../../../../../lib/quickfile';
+import { prisma } from '../../../../../lib/db';
 
 \1
   if (!requireAdmin()) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
