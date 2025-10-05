@@ -1,5 +1,5 @@
 import { redirect } from 'next/navigation';
-import { setSession, clearSession } from '@/lib/auth';
+import { setSession, clearSession } from '../../../lib/auth';
 
 export default function LoginPage() {
   async function login(formData: FormData) {
