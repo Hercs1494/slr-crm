@@ -1,7 +1,7 @@
 import { prisma } from '@/lib/db';
 import AdminNav from '@/components/AdminNav';
 import { startOfflineReplay } from '@/lib/offline';
-import RealtimeRefresher from '@/components/RealtimeRefresher';
+import RealtimeRefresher from '../../../components/RealtimeRefresher';
 
 export default async function EnquiriesPage() {
   const enquiries = await prisma.enquiry.findMany({ include: { customer: true }, orderBy: { createdAt: 'desc' } });
