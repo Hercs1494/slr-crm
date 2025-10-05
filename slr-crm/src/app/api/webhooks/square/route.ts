@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import crypto from 'crypto';
-import { prisma } from '@/lib/db';
-import { logPayment, ensureClient, createBalanceInvoice } from '@/lib/quickfile';
+import { prisma } from '../../../../lib/db';
+import { logPayment, ensureClient, createBalanceInvoice } from '../../../../lib/quickfile';
 
 /** Square signature verification: HMAC-SHA1(secret, url + body) */
 function verifySquareSignature(req: NextRequest, rawBody: string) {
