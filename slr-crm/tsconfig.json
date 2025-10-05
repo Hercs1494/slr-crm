@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-    "target": "ES2021",
-    "lib": ["dom", "es2021"],
+    "target": "ES2020",
+    "lib": ["dom", "es2020"],
     "jsx": "preserve",
     "module": "esnext",
     "moduleResolution": "bundler",
@@ -11,5 +11,5 @@
     "baseUrl": ".",
     "paths": { "@/*": ["src/*"] }
   },
-  "include": ["src"]
+    "exclude": ["node_modules"]
 }
