@@ -1,6 +1,6 @@
-import { prisma } from '@/lib/db';
-import AdminNav from '@/components/AdminNav';
-import RealtimeRefresher from '@/components/RealtimeRefresher';
+import { prisma } from '../../../lib/db';
+import AdminNav from '../../../components/AdminNav';
+import RealtimeRefresher from '../../../components/RealtimeRefresher';
 
 export default async function JobsPage() {
   const jobs = await prisma.job.findMany({ include: { customer: true, appointments: true }, orderBy: { id: 'desc' }, take: 50 });
