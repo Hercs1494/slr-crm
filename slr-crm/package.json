@@ -1,5 +1,5 @@
 {
-  "name": "slr-crm",
+  "name": "slr-crm-root",
   "private": true,
   "scripts": {
     "dev": "next dev",
