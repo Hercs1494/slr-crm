@@ -1,10 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { requireAdmin } from '../../../../lib/api-auth';
-
 import { prisma } from '../../../../lib/db';
 import { publicFileUrl } from '../../../../lib/storage';
 
-\1
   if (!requireAdmin()) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   const { jobId, paths, kind } = await req.json();
   if (!jobId || !Array.isArray(paths) || paths.length === 0) {
