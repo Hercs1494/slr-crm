@@ -1,8 +1,8 @@
 'use client';
 import React, { useEffect, useMemo, useState } from 'react';
-import { offlineFetch } from '../../../lib/offline';
+import { offlineFetch } from '../../lib/offline';
 import dynamic from 'next/dynamic';
-const MapThumb = dynamic(() => import('../../../components/MapThumb'), { ssr: false });
+const MapThumb = dynamic(() => import('../../components/MapThumb'), { ssr: false });
 
 const [data, setData] = useState<any>(null);
 
@@ -10,7 +10,7 @@ async function load() {
   try {
     const res = await fetch('/api/tech/overview', { cache: 'no-store' });
     const json = await res.json();
-    setData(json);
+    setData(await res.json());
   } catch (e) {
     console.error('Error fetching overview', e);
   }
