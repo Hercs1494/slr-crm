@@ -1,10 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { requireAdmin } from '../../../../../lib/api-auth';
-
 import { ensureClient, createInvoice } from '../../../../../lib/quickfile';
 import { prisma } from '../../../../../lib/db';
 
-\1
   if (!requireAdmin()) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   const { customer, items, notes, quoteId } = await req.json();
   const clientId = await ensureClient({ companyName: `${customer.firstName} ${customer.lastName}`, contactName: `${customer.firstName} ${customer.lastName}`, email: customer.email });
