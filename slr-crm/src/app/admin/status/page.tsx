@@ -20,26 +20,23 @@ function Badge({ ok }: { ok: boolean }) {
 }
 
 export default function StatusPage() {
-  const [data, setData] = useState<StatusResponse | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [data, setData] = useState<any>(null);
+const [loading, setLoading] = useState(true);
 
-  async function load() {
-    try {
-      const res = await fetch('/api/status', { cache: 'no-store' });
-      const json = (await res.json()) as StatusResponse;
-      setData(json);
-    } catch (e) {
-      console.error('Error fetching /api/status', e);
-    } finally {
-      setLoading(false);
-    }
+async function load() {
+  try {
+    const res = await fetch('/api/status', { cache: 'no-store' });
+    setData(await res.json());
+  } finally {
+    setLoading(false);
   }
+}
 
-  useEffect(() => {
-    load(); // initial load
-    const id = setInterval(load, 10000); // refresh every 10s
-    return () => clearInterval(id);
-  }, []);
+useEffect(() => {
+  load();
+  const id = setInterval(load, 10000);
+  return () => clearInterval(id);
+}, []);
 
   const checks = data?.checks ?? {};
   const keys = Object.keys(checks);
