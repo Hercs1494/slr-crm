@@ -1,10 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { requireAdmin } from '../../../../../lib/api-auth';
-
 import { prisma } from '../../../../../lib/db';
 import { sendEmail } from '../../../../../lib/notifications';
 
-\1
   if (!requireAdmin()) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   const jobId = params.id;
   const job = await prisma.job.findUnique({ where: { id: jobId }, include: { customer: true, quote: true } });
